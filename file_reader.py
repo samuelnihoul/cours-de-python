@@ -25,19 +25,8 @@ def afficher_contenu_dict(dictionnaire):
     except Exception as e:
         print(f"Erreur lors de l'affichage: {e}")
 
-# Programme principal pour tester
 def main():
-    # Test de remplacement de lettres
     chemin_fichier = "test.txt"
-    
-    # Créer un fichier de test
-    try:
-        with open(chemin_fichier, 'w') as f:
-            f.write("Voici la première ligne\nDeuxième ligne de test\nTroisième ligne!")
-    except Exception as e:
-        print(f"Erreur lors de la création du fichier de test: {e}")
-        return
-
     # Test des différentes fonctionnalités
     print("1. Contenu original du fichier:")
     dict_original = lire_fichier_vers_dict(chemin_fichier)

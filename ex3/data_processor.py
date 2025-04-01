@@ -3,6 +3,7 @@ import csv
 import json
 from typing import Dict, Any, List
 import os
+from ex2.text_processor import remplacer_lettres
 
 def get_api_data(url: str, method: str = 'GET', data: Dict = None) -> Dict[str, Any]:
     """
@@ -90,7 +91,7 @@ def export_to_csv(data: List[Dict[str, Any]], output_file: str) -> None:
 # Exemple d'utilisation
 if __name__ == "__main__":
     # Exemple d'appel API
-    api_url = "https://api.example.com/data"
+    api_url = "https://db.ygoprodeck.com/api/v7/cardinfo.php"
     api_data = get_api_data(api_url)
     
     # Exemple de traitement CSV
@@ -109,4 +110,7 @@ if __name__ == "__main__":
         {"nom": "Dupont", "age": 30},
         {"nom": "Martin", "age": 25}
     ]
-    export_to_csv(csv_data, "output.csv") 
+    export_to_csv(csv_data, "output2.csv")
+    
+    # Exemple d'utilisation de text_processor
+    remplacer_lettres("example.txt", lettres_a_remplacer=['a', 'e', 'i']) 

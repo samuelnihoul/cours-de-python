@@ -1,1 +1,5 @@
 __pycache__
+p12
+*.csv
+*.json
+*.txt

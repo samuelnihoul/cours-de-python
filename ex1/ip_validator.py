@@ -23,11 +23,11 @@ def valider_dict_ip(dict_ip):
         print(f"Erreur inattendue lors du traitement: {e}")
     
     return resultats
-
-# Test avec simulation d'erreurs
-test_dict = {
-    'serveur1': '192.168.1.1',
-    'serveur2': None,  # Simuler une erreur
-    'serveur3': 12345,  # Simuler une erreur de type
-    'serveur4': '2001:db8::8a2e:370:7334'
-} 
+if __name__=="__main__":
+    # Test avec simulation d'erreurs
+    test_dict = {
+        'serveur1': '192.168.1.1',
+        'serveur2': None,  # Simuler une erreur
+        'serveur3': 12345,  # Simuler une erreur de type
+        'serveur4': '2001:db8::8a2e:370:7334'
+    } 

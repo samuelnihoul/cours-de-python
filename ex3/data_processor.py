@@ -3,7 +3,7 @@ import csv
 import json
 from typing import Dict, Any, List
 import os
-from ex2.text_processor import remplacer_lettres
+from ex1.ip_address import ask_for_a_dict_of_addresses
 
 def get_api_data(url: str, method: str = 'GET', data: Dict = None) -> Dict[str, Any]:
     """
@@ -72,45 +72,32 @@ def export_to_json(data: Dict[str, Any], output_file: str) -> None:
     except Exception as e:
         print(f"Erreur lors de l'export JSON: {e}")
 
-def export_to_csv(data: List[Dict[str, Any]], output_file: str) -> None:
+def export_to_csv(data: dict, output_file: str) -> None:
     """
     Exporte des données dans un fichier CSV avec des en-têtes
     """
-    try:
-        if not data:
-            raise ValueError("Aucune donnée à exporter")
-
-        with open(output_file, 'w', newline='', encoding='utf-8') as f:
-            writer = csv.DictWriter(f, fieldnames=data[0].keys())
-            writer.writeheader()
-            writer.writerows(data)
-        print(f"Données exportées avec succès dans {output_file}")
-    except Exception as e:
-        print(f"Erreur lors de l'export CSV: {e}")
-
+    # try:
+    print(data)
+    print(type(data))
+    if not data:
+        raise ValueError("Aucune donnée à exporter")
+    with open(output_file, 'w', newline='', encoding='utf-8') as f:
+        writer = csv.DictWriter(f, fieldnames=('serveur','hôte'))
+        writer.writeheader()
+        writer.writerows(data)
+    print(f"Données exportées avec succès dans {output_file}")
+    # except Exception as e:
+        # print(f"Erreur lors de l'export CSV: {e}")
+def process_row(row):
+    # Exemple de modification: convertir les valeurs en majuscules
+    return {k: v.upper() for k, v in row.items()}
 # Exemple d'utilisation
 if __name__ == "__main__":
     # Exemple d'appel API
     api_url = "https://db.ygoprodeck.com/api/v7/cardinfo.php"
     api_data = get_api_data(api_url)
-    
-    # Exemple de traitement CSV
-    def process_row(row):
-        # Exemple de modification: convertir les valeurs en majuscules
-        return {k: v.upper() for k, v in row.items()}
-    
     process_csv("input.csv", "output.csv", process_row)
+    user_input=ask_for_a_dict_of_addresses()
+    export_to_csv(user_input, "output3.csv")
+    export_to_json(user_input,"output2.json")
     
-    # Exemple d'export JSON
-    data_to_export = {"key": "value", "number": 42}
-    export_to_json(data_to_export, "output.json")
-    
-    # Exemple d'export CSV
-    csv_data = [
-        {"nom": "Dupont", "age": 30},
-        {"nom": "Martin", "age": 25}
-    ]
-    export_to_csv(csv_data, "output2.csv")
-    
-    # Exemple d'utilisation de text_processor
-    remplacer_lettres("example.txt", lettres_a_remplacer=['a', 'e', 'i']) 

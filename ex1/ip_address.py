@@ -83,33 +83,31 @@ def valider_dict_ip(dict_ip):
             })
     return resultats
 
-# Programme principal
-print("Veuillez entrer vos hôtes et adresses IP (format: host adresse_ip)")
-print("Exemple: serveur1 192.168.1.1")
-print("Appuyez sur Entrée deux fois pour terminer la saisie\n")
 
-dict_adresses = {}
-while True:
-    ligne = input()
-    if ligne == "":  # Double Entrée pour terminer
-        break
-    try:
-        host, ip = ligne.split(None, 1)  # Séparer en deux parties (host et IP)
-        dict_adresses[host] = ip
-    except ValueError:
-        print("Format incorrect. Utilisez: 'host adresse_ip'")
-        continue
+def ask_for_a_dict_of_addresses()->dict:
+    dict_adresses = {}
+    while True:
+        ligne = input()
+        if ligne == "":  # Double Entrée pour terminer
+            break
+        try:
+            host, ip = ligne.split(None, 1)  # Séparer en deux parties (host et IP)
+            dict_adresses[host] = ip
+        except ValueError:
+            print("Format incorrect. Utilisez: 'host adresse_ip'")
+            continue
+    return(dict_adresses)
+if __name__ == '__main__':
+    # Valider toutes les adresses
+    resultats = valider_dict_ip(ask_for_a_dict_of_addresses())
 
-# Valider toutes les adresses
-resultats = valider_dict_ip(dict_adresses)
-
-# Afficher les résultats
-print("\nRésultats de la validation :")
-print("-" * 60)
-print(f"{'Hôte':<20} {'Adresse IP':<35} {'Statut'}")
-print("-" * 60)
-for res in resultats:
-    if res['valide']:
-        print(f"{res['host']:<20} {res['adresse']:<35} ✓ {res['type']}")
-    else:
-        print(f"{res['host']:<20} {res['adresse']:<35} ✗ Invalide") 
+    # Afficher les résultats
+    print("\nRésultats de la validation :")
+    print("-" * 60)
+    print(f"{'Hôte':<20} {'Adresse IP':<35} {'Statut'}")
+    print("-" * 60)
+    for res in resultats:
+        if res['valide']:
+            print(f"{res['host']:<20} {res['adresse']:<35} ✓ {res['type']}")
+        else:
+            print(f"{res['host']:<20} {res['adresse']:<35} ✗ Invalide") 
